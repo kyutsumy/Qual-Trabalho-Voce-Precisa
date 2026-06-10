@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Meu Perfil - WishWork</title>
+
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
+  </head>
+
+  <body>
+    <button class="back-btn" onclick="history.back()">←</button>
+
+    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">
+      🌙
+    </button>
+
+    <div class="profile-container">
+      <div class="profile-box">
+        <div class="profile-header">
+          <a
+            href="/pages/home.html"
+            class="site-logo site-logo--box site-logo--center"
+            data-site-name
+          ></a>
+
+          <div class="profile-title">
+            <h1>Meu Perfil</h1>
+            <p>Personalize como você aparece no marketplace</p>
+          </div>
+        </div>
+
+        <div class="preview-card">
+          <input type="hidden" id="avatarUrl" />
+
+          <input
+            type="file"
+            id="avatarFile"
+            accept="image/png, image/jpeg, image/jpg, image/webp"
+            hidden
+          />
+
+          <button type="button" id="avatarUploadButton" class="avatar-upload">
+            <div id="avatarPreview" class="avatar-preview"></div>
+
+            <div class="avatar-overlay">Alterar foto</div>
+          </button>
+
+          <div>
+            <strong id="previewName">Seu nome</strong>
+            <span id="previewProfession">Sua profissão</span>
+
+            <p class="avatar-hint">
+              Clique ou arraste uma imagem no círculo para trocar sua foto.
+            </p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="input-group color-name-group">
+            <div class="name-top-row">
+              <label>Nome de usuário</label>
+
+              <div class="profile-color-dropdown">
+                <button
+                  type="button"
+                  id="profileColorButton"
+                  class="profile-color-button"
+                  onclick="toggleProfileColorMenu()"
+                >
+                  Cor
+                </button>
+
+                <div id="profileColorMenu" class="profile-color-menu">
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#facc15', 'Dourado')"
+                  >
+                    <span style="background: #facc15"></span>
+                    Dourado
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#3ba55c', 'Verde')"
+                  >
+                    <span style="background: #3ba55c"></span>
+                    Verde
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#ff6b6b', 'Vermelho')"
+                  >
+                    <span style="background: #ff6b6b"></span>
+                    Vermelho
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#5865f2', 'Azul')"
+                  >
+                    <span style="background: #5865f2"></span>
+                    Azul
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#a78bfa', 'Roxo')"
+                  >
+                    <span style="background: #a78bfa"></span>
+                    Roxo
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#ff7ac8', 'Rosa')"
+                  >
+                    <span style="background: #ff7ac8"></span>
+                    Rosa
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#8b5e3c', 'Marrom')"
+                  >
+                    <span style="background: #8b5e3c"></span>
+                    Marrom
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#22d3ee', 'Ciano')"
+                  >
+                    <span style="background: #22d3ee"></span>
+                    Ciano
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#f97316', 'Laranja')"
+                  >
+                    <span style="background: #f97316"></span>
+                    Laranja
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#9ca3af', 'Cinza')"
+                  >
+                    <span style="background: #9ca3af"></span>
+                    Cinza
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#ffffff', 'Branco')"
+                  >
+                    <span style="background: #ffffff"></span>
+                    Branco
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#111827', 'Preto')"
+                  >
+                    <span style="background: #111827"></span>
+                    Preto
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#10b981', 'Esmeralda')"
+                  >
+                    <span style="background: #10b981"></span>
+                    Esmeralda
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#6366f1', 'Índigo')"
+                  >
+                    <span style="background: #6366f1"></span>
+                    Índigo
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#7f1d1d', 'Vinho')"
+                  >
+                    <span style="background: #7f1d1d"></span>
+                    Vinho
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#84cc16', 'Lima')"
+                  >
+                    <span style="background: #84cc16"></span>
+                    Lima
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#14b8a6', 'Turquesa')"
+                  >
+                    <span style="background: #14b8a6"></span>
+                    Turquesa
+                  </button>
+
+                  <button
+                    type="button"
+                    class="profile-color-option"
+                    onclick="setProfileColor('#fb7185', 'Pêssego')"
+                  >
+                    <span style="background: #fb7185"></span>
+                    Pêssego
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" id="profileColor" value="#ff6b6b" />
+
+            <input
+              type="text"
+              id="name"
+              maxlength="20"
+              placeholder="Seu nome"
+            />
+
+            <small id="nameCounter">0/20</small>
+          </div>
+
+          <div class="input-group">
+            <label>Profissão</label>
+
+            <input
+              type="text"
+              id="profession"
+              maxlength="30"
+              placeholder="Ex: Programador"
+            />
+          </div>
+
+          <div class="input-group">
+            <label>Cidade</label>
+
+            <input
+              type="text"
+              id="city"
+              maxlength="40"
+              placeholder="Ex: Brasília"
+            />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Bio</label>
+
+          <textarea
+            id="bio"
+            class="custom-scroll"
+            maxlength="300"
+            placeholder="Conte um pouco sobre você..."
+          ></textarea>
+
+          <small id="bioCounter">0/300</small>
+        </div>
+
+        <button id="saveProfileBtn" class="save-btn" onclick="saveProfile()">
+          Salvar Perfil
+        </button>
+      </div>
+    </div>
+
+    <script src="/assets/site-config.js"></script>
+    <script src="/assets/site.js"></script>
+    <script src="/assets/theme.js"></script>
+    <script src="/assets/api-config.js"></script>
+    <script src="/js/profile.js"></script>
+  </body>
+</html>

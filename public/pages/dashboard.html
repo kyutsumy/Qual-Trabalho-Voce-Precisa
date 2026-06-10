@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dashboard - WishWork</title>
+
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
+
+  <body>
+    <button class="back-btn" onclick="history.back()">←</button>
+
+    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">
+      🌙
+    </button>
+
+    <div id="confirmModal" class="modal-overlay">
+      <div class="modal-box">
+        <h2>Confirmar ação</h2>
+
+        <p id="confirmMessage">Tem certeza que deseja continuar?</p>
+
+        <div class="modal-actions">
+          <button class="modal-btn cancel-modal" onclick="closeConfirmModal()">
+            Voltar
+          </button>
+
+          <button
+            class="modal-btn confirm-modal"
+            onclick="confirmModalAction()"
+          >
+            Confirmar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <header class="dashboard-header">
+        <a
+          href="/pages/home.html"
+          class="site-logo site-logo--nav"
+          data-site-name
+        ></a>
+
+        <a href="/pages/profile.html" class="profile-box">
+          <div id="dashboardAvatar" class="avatar"></div>
+
+          <div>
+            <h3 id="userName">carregando...</h3>
+            <span id="userEmail">carregando...</span>
+          </div>
+        </a>
+      </header>
+
+      <section class="topbar">
+        <div>
+          <h1>Dashboard</h1>
+          <p>Gerencie seus serviços, pedidos e atividades</p>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <div class="stat-card">
+          <h2 id="servicesCount">0</h2>
+          <p>Serviços publicados</p>
+        </div>
+
+        <div class="stat-card">
+          <h2 id="receivedOrdersCount">0</h2>
+          <p>Pedidos recebidos</p>
+        </div>
+
+        <div class="stat-card">
+          <h2 id="madeOrdersCount">0</h2>
+          <p>Pedidos feitos</p>
+        </div>
+      </section>
+
+      <section class="dashboard-section full service-manager-section">
+        <div class="section-header">
+          <h2>Gerenciar Serviços</h2>
+
+          <a href="/pages/create-service.html"> Novo serviço </a>
+        </div>
+
+        <div class="service-manager">
+          <aside class="service-list-panel">
+            <div class="service-list-header">
+              <h3>Meus Serviços</h3>
+              <span id="serviceListCount">0</span>
+            </div>
+
+            <div
+              id="serviceManagerList"
+              class="service-manager-list custom-scroll"
+            ></div>
+          </aside>
+
+          <div class="service-editor-panel">
+            <div class="editor-empty" id="editorEmpty">
+              <h3>Selecione um serviço</h3>
+              <p>
+                Clique em um serviço da lista para editar título, categoria,
+                preço, localização e descrição.
+              </p>
+            </div>
+
+            <div class="service-editor" id="serviceEditor">
+              <input type="hidden" id="editServiceId" />
+
+              <div class="editor-header">
+                <div>
+                  <h3>Editar Serviço</h3>
+                  <p>Atualize as informações do serviço selecionado</p>
+                </div>
+
+                <button
+                  class="delete-service-btn"
+                  onclick="openDeleteServiceModal()"
+                >
+                  Excluir
+                </button>
+              </div>
+
+              <div class="form-grid">
+                <div class="input-group">
+                  <label>Título</label>
+
+                  <input
+                    type="text"
+                    id="editTitle"
+                    maxlength="50"
+                    placeholder="Título do serviço"
+                  />
+
+                  <small id="editTitleCounter">0/50</small>
+                </div>
+
+                <div class="input-group">
+                  <label>Categoria</label>
+
+                  <select id="editCategory">
+                    <option value="">Selecione uma categoria</option>
+                    <option value="Eletricista">Eletricista</option>
+                    <option value="Encanador">Encanador</option>
+                    <option value="Pintor">Pintor</option>
+                    <option value="Marceneiro">Marceneiro</option>
+                    <option value="Jardineiro">Jardineiro</option>
+                    <option value="Faxina">Faxina</option>
+                    <option value="Montador">Montador</option>
+                    <option value="Programador">Programador</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Professor Particular">
+                      Professor Particular
+                    </option>
+                    <option value="Técnico de Informática">
+                      Técnico de Informática
+                    </option>
+                    <option value="Outros">Outros</option>
+                  </select>
+
+                  <div id="editCustomCategoryBox" class="custom-category-box">
+                    <input
+                      type="text"
+                      id="editCustomCategory"
+                      maxlength="25"
+                      placeholder="Digite sua categoria"
+                    />
+
+                    <button type="button" onclick="backToEditCategoryList()">
+                      Lista
+                    </button>
+                  </div>
+                </div>
+
+                <div class="input-group price-group">
+                  <div class="price-top-row">
+                    <label>Preço</label>
+
+                    <div class="price-type-dropdown">
+                      <button
+                        type="button"
+                        id="editPriceTypeButton"
+                        class="price-type-button"
+                        onclick="toggleEditPriceTypeMenu()"
+                      >
+                        Tipo
+                      </button>
+
+                      <div id="editPriceTypeMenu" class="price-type-menu">
+                        <button
+                          type="button"
+                          class="price-option fixed-option"
+                          onclick="setEditPriceMode('fixed')"
+                        >
+                          Fixo
+                        </button>
+
+                        <button
+                          type="button"
+                          class="price-option variable-option"
+                          onclick="setEditPriceMode('variable')"
+                        >
+                          Variável
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="price-card">
+                    <div id="editPricePlaceholder" class="price-placeholder">
+                      Selecione uma opção
+                    </div>
+
+                    <div id="editFixedPriceBox" class="price-wrapper">
+                      <span>R$</span>
+
+                      <input
+                        type="text"
+                        id="editPrice"
+                        placeholder="0,00"
+                        inputmode="numeric"
+                      />
+                    </div>
+
+                    <div id="editVariablePriceBox" class="variable-price-box">
+                      <span class="price-prefix">R$</span>
+
+                      <input
+                        type="text"
+                        id="editPriceMin"
+                        placeholder="mínimo"
+                        inputmode="numeric"
+                      />
+
+                      <span class="price-separator">-</span>
+
+                      <input
+                        type="text"
+                        id="editPriceMax"
+                        placeholder="máximo"
+                        inputmode="numeric"
+                      />
+                    </div>
+                  </div>
+
+                  <small>Limite: R$ 25.000,00</small>
+                </div>
+              </div>
+
+              <div class="form-grid two">
+                <div class="input-group">
+                  <label>Cidade</label>
+
+                  <input type="text" id="editCity" placeholder="Cidade" />
+                </div>
+
+                <div class="input-group">
+                  <label>Área/Bairro</label>
+
+                  <input
+                    type="text"
+                    id="editArea"
+                    placeholder="Área ou bairro"
+                  />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label>Descrição</label>
+
+                <textarea
+                  id="editDescription"
+                  class="custom-scroll"
+                  maxlength="1000"
+                  placeholder="Descrição do serviço"
+                ></textarea>
+
+                <small id="editDescriptionCounter">0/1000</small>
+              </div>
+
+              <button class="save-service-btn" onclick="saveServiceChanges()">
+                Salvar alterações
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="dashboard-section">
+          <h2>Pedidos Recebidos</h2>
+
+          <div id="receivedOrders" class="cards-list custom-scroll"></div>
+        </div>
+
+        <div class="dashboard-section">
+          <h2>Pedidos Feitos</h2>
+
+          <div id="madeOrders" class="cards-list custom-scroll"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/site-config.js"></script>
+    <script src="/assets/site.js"></script>
+    <script src="/assets/api-config.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/assets/theme.js"></script>
+  </body>
+</html>

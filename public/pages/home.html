@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WishWork</title>
+
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/home.css" />
+  </head>
+
+  <body>
+    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">
+      🌙
+    </button>
+
+    <div id="descriptionModal" class="modal-overlay">
+      <div class="modal-box custom-scroll">
+        <div class="modal-header">
+          <h2 id="modalTitle">Descrição do serviço</h2>
+
+          <button onclick="closeDescriptionModal()">×</button>
+        </div>
+
+        <p id="modalDescription"></p>
+      </div>
+    </div>
+
+    <header class="navbar">
+      <a
+        href="/pages/home.html"
+        class="site-logo site-logo--nav"
+        data-site-name
+      ></a>
+
+      <div class="nav-search">
+        <div class="nav-search-box">
+          <span>🔎</span>
+
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Encontre o serviço ideal..."
+          />
+
+          <button type="button" onclick="toggleFilterPanel()">Filtros</button>
+        </div>
+
+        <div id="filterPanel" class="filter-panel">
+          <div class="filter-panel-header">
+            <strong>Filtros</strong>
+            <span id="filterResultCount">0 serviços</span>
+          </div>
+
+          <div class="filter-panel-grid">
+            <div class="filter-group">
+              <label>Categoria</label>
+
+              <select id="categoryFilter">
+                <option value="">Todas</option>
+                <option value="Eletricista">Eletricista</option>
+                <option value="Encanador">Encanador</option>
+                <option value="Pintor">Pintor</option>
+                <option value="Marceneiro">Marceneiro</option>
+                <option value="Jardineiro">Jardineiro</option>
+                <option value="Faxina">Faxina</option>
+                <option value="Montador">Montador</option>
+                <option value="Programador">Programador</option>
+                <option value="Designer">Designer</option>
+                <option value="Professor Particular">
+                  Professor Particular
+                </option>
+                <option value="Técnico de Informática">
+                  Técnico de Informática
+                </option>
+                <option value="Outros">Outros</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Cidade ou bairro</label>
+
+              <input
+                type="text"
+                id="cityFilter"
+                placeholder="Ex: Brasília, Centro..."
+              />
+            </div>
+
+            <div class="filter-group">
+              <label>Tipo de preço</label>
+
+              <select id="priceTypeFilter">
+                <option value="">Todos</option>
+                <option value="fixed">Fixo</option>
+                <option value="variable">Variável</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Ordenar</label>
+
+              <select id="sortFilter">
+                <option value="recent">Mais recentes</option>
+                <option value="lowest">Menor preço</option>
+                <option value="highest">Maior preço</option>
+                <option value="az">A-Z</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="clear-filter-btn" onclick="clearFilters()">
+            Limpar filtros
+          </button>
+        </div>
+      </div>
+
+      <div class="nav-buttons">
+        <a href="/pages/login.html" class="login-link">Entrar</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1 data-site-slogan></h1>
+
+        <p>Contrate serviços com rapidez, segurança e praticidade.</p>
+
+        <button class="explore-btn" onclick="scrollToServices()">
+          Explorar Serviços
+          <span>↓</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="categories">
+      <h2>Diversas Categorias</h2>
+
+      <div class="category-grid">
+        <button
+          class="category-card"
+          onclick="quickCategoryFilter('Eletricista')"
+        >
+          🔧 Eletricista
+        </button>
+
+        <button
+          class="category-card"
+          onclick="quickCategoryFilter('Encanador')"
+        >
+          🚿 Encanador
+        </button>
+
+        <button class="category-card" onclick="quickCategoryFilter('Pintor')">
+          🎨 Pintor
+        </button>
+
+        <button
+          class="category-card"
+          onclick="quickCategoryFilter('Programador')"
+        >
+          💻 Programador
+        </button>
+
+        <button
+          class="category-card"
+          onclick="quickCategoryFilter('Jardineiro')"
+        >
+          🪴 Jardineiro
+        </button>
+
+        <button
+          class="category-card"
+          onclick="quickCategoryFilter('Marceneiro')"
+        >
+          🪚 Marceneiro
+        </button>
+      </div>
+    </section>
+
+    <section class="professionals" id="servicesSection">
+      <h2>Profissionais em destaque</h2>
+
+      <div class="professional-grid" id="servicesGrid"></div>
+    </section>
+
+    <!-- MODAL PERFIL PÚBLICO -->
+
+    <div id="profileModal" class="profile-modal">
+      <div class="profile-modal-card custom-scroll">
+        <button class="profile-modal-close" onclick="closeProfileModal()">
+          ×
+        </button>
+
+        <div class="profile-modal-header">
+          <div id="profileModalAvatar" class="profile-modal-avatar"></div>
+
+          <div>
+            <h2 id="profileModalName">Nome</h2>
+            <p id="profileModalProfession">Profissão</p>
+            <span id="profileModalCity">Cidade</span>
+          </div>
+        </div>
+
+        <div class="profile-modal-bio">
+          <h3>Sobre</h3>
+          <p id="profileModalBio"></p>
+        </div>
+
+        <div class="profile-modal-services">
+          <h3>Serviços publicados</h3>
+
+          <div
+            id="profileModalServicesList"
+            class="profile-modal-services-list"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/assets/site-config.js"></script>
+    <script src="/assets/site.js"></script>
+    <script src="/assets/api-config.js"></script>
+    <script src="/js/home.js"></script>
+    <script src="/assets/theme.js"></script>
+  </body>
+</html>

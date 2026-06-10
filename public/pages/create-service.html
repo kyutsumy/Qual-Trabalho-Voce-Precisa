@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Criar Serviço</title>
+
+    <link rel="stylesheet" href="/css/theme.css" />
+    <link rel="stylesheet" href="/css/create-service.css" />
+  </head>
+
+  <body>
+    <button class="back-btn" onclick="history.back()">←</button>
+
+    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">
+      🌙
+    </button>
+
+    <div class="create-container">
+      <div class="create-box">
+        <div class="create-header">
+          <a
+            href="/pages/home.html"
+            class="site-logo site-logo--box site-logo--center"
+            data-site-name
+          ></a>
+
+          <div class="create-title">
+            <h1>Criar Serviço</h1>
+            <p class="subtitle">Publique seu serviço no marketplace</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="input-group">
+            <label>Título</label>
+
+            <input
+              type="text"
+              id="title"
+              maxlength="50"
+              placeholder="Ex: Eletricista residencial"
+            />
+
+            <small id="titleCounter">0/50</small>
+          </div>
+
+          <div class="input-group">
+            <label>Categoria</label>
+
+            <select id="category">
+              <option value="">Selecione uma categoria</option>
+              <option value="Eletricista">Eletricista</option>
+              <option value="Encanador">Encanador</option>
+              <option value="Pintor">Pintor</option>
+              <option value="Marceneiro">Marceneiro</option>
+              <option value="Jardineiro">Jardineiro</option>
+              <option value="Faxina">Faxina</option>
+              <option value="Montador">Montador</option>
+              <option value="Programador">Programador</option>
+              <option value="Designer">Designer</option>
+              <option value="Professor Particular">Professor Particular</option>
+              <option value="Técnico de Informática">
+                Técnico de Informática
+              </option>
+              <option value="Outros">Outros</option>
+            </select>
+
+            <div id="customCategoryBox" class="custom-category-box">
+              <input
+                type="text"
+                id="customCategory"
+                maxlength="25"
+                placeholder="Digite sua categoria"
+              />
+
+              <button type="button" onclick="backToCategoryList()">
+                Lista
+              </button>
+            </div>
+
+            <small id="categoryCounter"></small>
+          </div>
+
+          <div class="input-group price-group">
+            <div class="price-top-row">
+              <label>Preço</label>
+
+              <div class="price-type-dropdown">
+                <button
+                  type="button"
+                  id="priceTypeButton"
+                  class="price-type-button"
+                  onclick="togglePriceTypeMenu()"
+                >
+                  Tipo
+                </button>
+
+                <div id="priceTypeMenu" class="price-type-menu">
+                  <button
+                    type="button"
+                    class="price-option fixed-option"
+                    onclick="setPriceMode('fixed')"
+                  >
+                    Fixo
+                  </button>
+
+                  <button
+                    type="button"
+                    class="price-option variable-option"
+                    onclick="setPriceMode('variable')"
+                  >
+                    Variável
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="price-card">
+              <div id="pricePlaceholder" class="price-placeholder">
+                Selecione uma opção
+              </div>
+
+              <div id="fixedPriceBox" class="price-wrapper">
+                <span>R$</span>
+
+                <input
+                  type="text"
+                  id="price"
+                  placeholder="0,00"
+                  inputmode="numeric"
+                />
+              </div>
+
+              <div id="variablePriceBox" class="variable-price-box">
+                <span class="price-prefix">R$</span>
+
+                <input
+                  type="text"
+                  id="priceMin"
+                  placeholder="mínimo"
+                  inputmode="numeric"
+                />
+
+                <span class="price-separator">-</span>
+
+                <input
+                  type="text"
+                  id="priceMax"
+                  placeholder="máximo"
+                  inputmode="numeric"
+                />
+              </div>
+            </div>
+
+            <small>Limite: R$ 25.000,00</small>
+          </div>
+        </div>
+
+        <div class="form-grid two">
+          <div class="input-group">
+            <label>Cidade</label>
+
+            <input type="text" id="city" placeholder="Brasília" />
+          </div>
+
+          <div class="input-group">
+            <label>Área/Bairro</label>
+
+            <input type="text" id="area" placeholder="Ex: Centro" />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Descrição</label>
+
+          <textarea
+            id="description"
+            class="custom-scroll"
+            maxlength="1000"
+            placeholder="Descreva seu serviço..."
+          ></textarea>
+
+          <small id="descriptionCounter">0/1000</small>
+        </div>
+
+        <button class="publish-btn" onclick="createService()">
+          Publicar Serviço
+        </button>
+      </div>
+    </div>
+
+    <script src="/assets/site-config.js"></script>
+    <script src="/assets/site.js"></script>
+    <script src="/assets/theme.js"></script>
+    <script src="/assets/api-config.js"></script>
+    <script src="/js/create-service.js"></script>
+  </body>
+</html>

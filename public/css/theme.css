@@ -1,0 +1,446 @@
+:root {
+  --bg: #0f0f0f;
+  --bg-soft: #151515;
+
+  --surface: #171717;
+  --surface-2: #1e1e1e;
+  --surface-3: #252525;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: #2f2f2f;
+
+  --text: #ffffff;
+  --text-muted: #9f9f9f;
+  --text-soft: #b8b8b8;
+
+  --primary: #5865f2;
+  --primary-dark: #4752c4;
+
+  --danger: #ff6b6b;
+  --danger-dark: #ff4d4d;
+
+  --success: #3ba55c;
+  --warning: #faa61a;
+
+  --shadow: rgba(0, 0, 0, 0.35);
+
+  --card-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 28px;
+}
+
+/* TEMA CLARO */
+
+body.light {
+  --bg: #e9e0d3;
+  --bg-soft: #ded2c1;
+
+  --surface: #f7efe3;
+  --surface-2: #eadfce;
+  --surface-3: #dfd1bd;
+
+  --border: rgba(88, 68, 45, 0.2);
+  --border-strong: #c8b8a1;
+
+  --text: #1c140d;
+  --text-muted: #6f6254;
+  --text-soft: #493d31;
+
+  --shadow: rgba(82, 61, 38, 0.2);
+
+  --card-shadow: 0 12px 30px rgba(82, 61, 38, 0.14);
+}
+
+/* BASE */
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+input,
+textarea,
+select {
+  background: var(--surface-2);
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.theme-toggle,
+.back-btn {
+  background: var(--surface-2);
+  color: var(--text);
+  box-shadow: 0 10px 25px var(--shadow);
+}
+
+body.light .theme-toggle,
+body.light .back-btn {
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* LOGO GLOBAL */
+
+.site-logo {
+  color: var(--danger);
+
+  text-decoration: none;
+
+  font-weight: bold;
+
+  line-height: 1.15;
+
+  transition: 0.25s;
+}
+
+.site-logo:hover {
+  transform: translateY(-2px);
+}
+
+/* Logo usada em navbar/topo */
+
+.site-logo--nav {
+  font-size: 28px;
+
+  max-width: 430px;
+
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Logo usada dentro de cards/caixas */
+
+.site-logo--box {
+  font-size: 26px;
+
+  max-width: 420px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 16px;
+
+  border-radius: 16px;
+
+  background: rgba(255, 107, 107, 0.08);
+  border: 1px solid rgba(255, 107, 107, 0.15);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.site-logo--box:hover {
+  background: rgba(255, 107, 107, 0.13);
+}
+
+/* Quando a logo fica absoluta no centro do card */
+
+.site-logo--center {
+  position: absolute;
+  left: 50%;
+  top: 0;
+
+  transform: translateX(-50%);
+}
+
+.site-logo--center:hover {
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* CARDS GLOBAIS NO MODO CLARO */
+
+body.light .professional-card,
+body.light .category-card,
+body.light .profile-box,
+body.light .create-box,
+body.light .admin-box,
+body.light .profiles-panel,
+body.light .login-box,
+body.light .dashboard-section,
+body.light .stat-card,
+body.light .card,
+body.light .preview-card,
+body.light .avatar-preview-box,
+body.light .modal-box {
+  box-shadow: var(--card-shadow);
+}
+
+/* CAMPOS NO MODO CLARO */
+
+body.light input,
+body.light textarea,
+body.light select,
+body.light .price-card,
+body.light .price-type-button,
+body.light .price-type-menu,
+body.light .profile-color-button,
+body.light .profile-color-menu {
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 900px) {
+  .site-logo--box {
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .site-logo--center {
+    position: static;
+    transform: none;
+  }
+
+  .site-logo--center:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* SCROLL PERSONALIZADO */
+
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+  scrollbar-gutter: stable;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+
+  border-radius: 999px;
+
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--danger);
+  background-clip: content-box;
+}
+
+.custom-scroll::-webkit-scrollbar-button {
+  height: 14px;
+}
+
+/* RODAPÉ GLOBAL */
+
+.global-footer {
+  width: 100%;
+
+  padding: 28px 24px;
+
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+
+  border-top: 1px solid var(--border);
+
+  color: var(--text-muted);
+
+  margin-top: 60px;
+}
+
+.global-footer-content {
+  width: 100%;
+  max-width: 1320px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.global-footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.global-footer-left strong {
+  color: var(--danger);
+  font-size: 16px;
+}
+
+.global-footer-left span {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.global-footer-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.global-footer-links button {
+  height: 40px;
+
+  padding: 0 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  background: var(--surface-2);
+  color: var(--text);
+
+  font-size: 13px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.global-footer-links button:hover {
+  transform: translateY(-2px);
+
+  background: var(--danger);
+  color: white;
+}
+
+/* MODAL LEGAL */
+
+.legal-modal {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.65);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: 0.25s ease;
+
+  z-index: 4000;
+}
+
+.legal-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.legal-modal-card {
+  position: relative;
+
+  width: 100%;
+  max-width: 640px;
+  max-height: 86vh;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: 26px;
+
+  padding: 30px;
+
+  box-shadow: 0 20px 60px var(--shadow);
+
+  transform: translateY(18px) scale(0.96);
+
+  transition: 0.25s ease;
+}
+
+.legal-modal.show .legal-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.legal-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  width: 38px;
+  height: 38px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: var(--surface-2);
+  color: var(--text);
+
+  font-size: 24px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.legal-modal-close:hover {
+  transform: translateY(-2px);
+
+  background: var(--danger);
+  color: white;
+}
+
+.legal-modal-card h2 {
+  font-size: 28px;
+
+  margin-bottom: 20px;
+  padding-right: 44px;
+}
+
+.legal-modal-text {
+  display: grid;
+  gap: 14px;
+}
+
+.legal-modal-text p {
+  color: var(--text-muted);
+
+  line-height: 1.7;
+}
+
+/* RESPONSIVO RODAPÉ */
+
+@media (max-width: 700px) {
+  .global-footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .global-footer-links {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .global-footer-links button {
+    width: 100%;
+  }
+
+  .legal-modal-card {
+    padding: 26px 22px;
+  }
+
+  .legal-modal-card h2 {
+    font-size: 24px;
+  }
+}

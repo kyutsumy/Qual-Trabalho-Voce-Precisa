@@ -1,10 +1,10 @@
 async function loadServices() {
-  const res = await fetch("http://localhost:3000/services/public");
+  const res = await fetch(`${API_URL}/services/public`);
   const data = await res.json();
 
   if (!data.success) return;
 
-  document.getElementById("servicesGrid").innerHTML = data.services
+  document.getElementById('servicesGrid').innerHTML = data.services
     .map(
       (s) => `
       <div class="service-card">
@@ -16,13 +16,13 @@ async function loadServices() {
           Contratar
         </button>
       </div>
-    `,
+    `
     )
-    .join("");
+    .join('');
 }
 
 loadServices();
 
 function goHome() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
