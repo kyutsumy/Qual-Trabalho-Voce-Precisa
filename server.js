@@ -135,11 +135,26 @@ app.post('/send-code', async (req, res) => {
       { upsert: true }
     );
 
+    if (process.env.NODE_ENV === 'production') {
+      console.log(`Código de acesso para ${email}: ${code}`);
+
+      return res.json({
+        success: true,
+        message: 'Código gerado com sucesso em modo demonstração.',
+        demoCode: code,
+      });
+    }
+
     await transporter.sendMail({
-      from: `"${SITE_NAME}" <${process.env.EMAIL_USER}>`,
+      from: process.env.EMAIL_USER,
       to: email,
-      subject: `Seu código - ${SITE_NAME}`,
+      subject: 'Seu código de acesso',
       html: emailTemplate(code),
+    });
+
+    return res.json({
+      success: true,
+      message: 'Código enviado para seu e-mail.',
     });
 
     return res.json({

@@ -189,6 +189,14 @@ async function sendCode() {
 
   const data = await response.json();
 
+  if (data.demoCode) {
+    codeInput.value = data.demoCode;
+    codeInput.dispatchEvent(new Event('input'));
+
+    codeMsg.textContent = `Modo demonstração: seu código é ${data.demoCode}`;
+    codeMsg.className = 'input-msg success';
+  }
+
   sendBtn.textContent = 'Enviar código';
 
   if (data.success) {
