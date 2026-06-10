@@ -1537,3 +1537,266 @@ html {
     width: 100%;
   }
 }
+
+/* AJUSTE MOBILE - HOME */
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Navbar deixa de seguir o scroll */
+  .navbar {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+
+    width: calc(100% - 24px);
+    margin: 14px auto 0;
+    padding: 18px 14px;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 14px;
+
+    border-radius: 24px;
+    min-height: auto;
+    z-index: 20;
+  }
+
+  /* Logo ocupa a linha de cima */
+  .navbar .site-logo {
+    grid-column: 1 / -1;
+    justify-self: center;
+
+    font-size: 28px;
+    text-align: center;
+    line-height: 1.1;
+    white-space: normal;
+    max-width: 100%;
+  }
+
+  /* Busca fica na esquerda da segunda linha */
+  .nav-search {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+  .nav-search-box {
+    height: 54px;
+    min-height: 54px;
+    padding: 0 8px 0 14px;
+
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+
+    border-radius: 20px;
+  }
+
+  .nav-search-box span {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .nav-search-box input {
+    min-width: 0;
+    height: 100%;
+    font-size: 14px;
+  }
+
+  /* Botão filtros vira botão pequeno */
+  .nav-search-box button {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    padding: 0;
+
+    font-size: 0;
+    border-radius: 16px;
+  }
+
+  .nav-search-box button::after {
+    content: '⚙';
+    font-size: 18px;
+  }
+
+  /* Usuário fica do lado da busca */
+  .nav-buttons {
+    grid-column: 2;
+    grid-row: 2;
+
+    justify-self: end;
+    align-self: center;
+
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .nav-buttons .login-link,
+  .nav-buttons .create-btn {
+    min-height: 48px;
+    padding: 0 16px;
+    border-radius: 18px;
+    white-space: nowrap;
+  }
+
+  /* Caso esteja logado */
+  .user-menu,
+  .user-dropdown,
+  .user-profile,
+  .user-button {
+    max-width: 120px;
+  }
+
+  .user-menu button,
+  .user-dropdown button,
+  .user-profile,
+  .user-button {
+    min-height: 54px;
+    border-radius: 20px;
+  }
+
+  .user-menu img,
+  .user-dropdown img,
+  .user-profile img,
+  .user-button img {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* Evita que o nome do usuário estoure no celular */
+  .user-menu span,
+  .user-dropdown span,
+  .user-profile span,
+  .user-button span {
+    max-width: 72px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Painel de filtros no celular */
+  .filter-panel {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 50%;
+
+    width: calc(100vw - 32px);
+    max-height: 72vh;
+    overflow-y: auto;
+
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .filter-panel-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .filter-actions {
+    flex-direction: column;
+  }
+
+  .filter-actions button {
+    width: 100%;
+  }
+
+  /* Hero fica menos gigante */
+  .hero {
+    min-height: auto;
+    padding: 58px 22px 60px;
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 13vw, 68px);
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+
+  .hero p {
+    font-size: 24px;
+    line-height: 1.45;
+    max-width: 360px;
+    margin: 0 auto 42px;
+  }
+
+  .hero .primary-btn,
+  .hero a.primary-btn {
+    width: 100%;
+    max-width: 310px;
+    min-height: 64px;
+    font-size: 22px;
+    border-radius: 24px;
+  }
+
+  /* Botão de tema menor e menos invasivo */
+  .theme-toggle {
+    width: 58px;
+    height: 58px;
+    right: 18px;
+    bottom: 18px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 430px) {
+  .navbar {
+    width: calc(100% - 18px);
+    padding: 16px 12px;
+    gap: 12px;
+  }
+
+  .navbar .site-logo {
+    font-size: 25px;
+  }
+
+  .nav-search-box {
+    height: 50px;
+    min-height: 50px;
+    border-radius: 18px;
+  }
+
+  .nav-search-box input {
+    font-size: 13px;
+  }
+
+  .nav-search-box button {
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    border-radius: 14px;
+  }
+
+  .user-menu,
+  .user-dropdown,
+  .user-profile,
+  .user-button {
+    max-width: 105px;
+  }
+
+  .user-menu span,
+  .user-dropdown span,
+  .user-profile span,
+  .user-button span {
+    max-width: 58px;
+  }
+
+  .hero {
+    padding-top: 46px;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 12vw, 58px);
+  }
+
+  .hero p {
+    font-size: 22px;
+  }
+}
