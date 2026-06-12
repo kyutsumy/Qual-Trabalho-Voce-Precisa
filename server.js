@@ -207,16 +207,6 @@ app.post('/send-code', async (req, res) => {
       { upsert: true }
     );
 
-    if (process.env.NODE_ENV === 'production') {
-      console.log(`Código de acesso para ${email}: ${code}`);
-
-      return res.json({
-        success: true,
-        message: 'Código gerado com sucesso em modo demonstração.',
-        demoCode: code,
-      });
-    }
-
     await sendCodeEmail({
       to: email,
       code,
@@ -226,17 +216,12 @@ app.post('/send-code', async (req, res) => {
       success: true,
       message: 'Código enviado para seu e-mail.',
     });
-
-    return res.json({
-      success: true,
-      message: 'Código enviado',
-    });
   } catch (err) {
-    console.error(err);
+    console.error('Erro ao enviar código:', err);
 
     return res.json({
       success: false,
-      message: 'Erro ao enviar código',
+      message: err.message || 'Erro ao enviar código',
     });
   }
 });
