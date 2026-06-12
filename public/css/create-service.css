@@ -587,10 +587,8 @@ body {
   display: inline;
 }
 
-/* =========================
-   AJUSTE MOBILE - CRIAR SERVIÇO
-   Logo igual ao perfil
-========================= */
+/* AJUSTE MOBILE - CRIAR SERVIÇO
+   Logo igual ao perfil */
 
 @media (max-width: 768px) {
   body {

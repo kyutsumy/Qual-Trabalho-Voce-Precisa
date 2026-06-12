@@ -760,3 +760,43 @@ body {
     font-size: 19px;
   }
 }
+
+/* CORREÇÃO REAL MOBILE - PERFIL */
+
+@media (max-width: 900px) {
+  .profile-box {
+    width: 100%;
+    max-width: 100%;
+    padding: 30px 18px 34px;
+    border-radius: 26px;
+  }
+
+  .profile-container {
+    align-items: flex-start;
+  }
+
+  .profile-color-menu {
+    display: none;
+    position: static;
+    width: 100%;
+    margin-top: 10px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .profile-color-menu.show {
+    display: grid;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .input-group {
+    margin-bottom: 22px;
+  }
+
+  .form-grid,
+  .form-grid.two {
+    gap: 0;
+  }
+}

@@ -1791,3 +1791,77 @@ html {
     font-size: 22px;
   }
 }
+
+/* CORREÇÃO MOBILE - FILTROS E MENU USUÁRIO */
+
+@media (max-width: 768px) {
+  .nav-search {
+    position: static;
+  }
+
+  .filter-panel {
+    position: fixed;
+    top: 150px;
+    left: 16px;
+    right: 16px;
+
+    width: auto;
+    max-width: none;
+    max-height: calc(100vh - 180px);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    transform: translateY(-10px) scale(0.97);
+    z-index: 5000;
+  }
+
+  .filter-panel.show {
+    transform: translateY(0) scale(1);
+  }
+
+  .filter-panel-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-actions {
+    flex-direction: column;
+  }
+
+  .filter-actions button {
+    width: 100%;
+  }
+
+  .user-dropdown-menu,
+  .user-menu-dropdown,
+  .profile-dropdown,
+  .dropdown-menu {
+    position: fixed !important;
+
+    top: 150px !important;
+    left: 16px !important;
+    right: 16px !important;
+
+    width: auto !important;
+    max-width: none !important;
+
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 5000 !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .filter-panel,
+  .user-dropdown-menu,
+  .user-menu-dropdown,
+  .profile-dropdown,
+  .dropdown-menu {
+    top: 138px !important;
+    left: 12px !important;
+    right: 12px !important;
+    max-height: calc(100vh - 160px);
+  }
+}

@@ -759,3 +759,40 @@ body {
 }
 
 /* tava passando tudo para a pasta assets/theme pra facilitar troca de cores */
+/* CORREÇÃO REAL MOBILE - ADMIN */
+
+@media (max-width: 1000px) {
+  .profile-color-menu,
+  .price-type-menu {
+    display: none;
+    position: static;
+    width: 100%;
+    margin-top: 10px;
+    transform: none;
+  }
+
+  .profile-color-menu.show {
+    display: grid;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .price-type-menu.show {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .input-group {
+    margin-bottom: 22px;
+  }
+
+  .form-grid,
+  .form-grid.two {
+    gap: 0;
+  }
+}
