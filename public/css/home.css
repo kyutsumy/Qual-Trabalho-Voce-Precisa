@@ -1735,15 +1735,6 @@ html {
     font-size: 22px;
     border-radius: 24px;
   }
-
-  /* Botão de tema menor e menos invasivo */
-  .theme-toggle {
-    width: 58px;
-    height: 58px;
-    right: 18px;
-    bottom: 18px;
-    border-radius: 18px;
-  }
 }
 
 @media (max-width: 430px) {
