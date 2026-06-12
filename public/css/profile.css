@@ -643,7 +643,6 @@ body {
 
   /* Aqui está o principal: remove altura exagerada */
   .profile-preview,
-  .avatar-preview,
   .preview-card,
   .profile-preview-card {
     min-height: auto !important;
@@ -798,5 +797,40 @@ body {
   .form-grid,
   .form-grid.two {
     gap: 0;
+  }
+}
+
+/* Corrige foto do perfil no mobile */
+@media (max-width: 768px) {
+  .avatar-upload {
+    width: 120px !important;
+    height: 120px !important;
+    min-width: 120px !important;
+    min-height: 120px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .avatar-preview {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+
+    display: block !important;
+
+    border-radius: 50% !important;
+
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+  }
+
+  .preview-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+
+    gap: 16px !important;
+    padding: 26px 20px !important;
   }
 }
