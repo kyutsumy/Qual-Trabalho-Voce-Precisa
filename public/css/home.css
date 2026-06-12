@@ -2010,3 +2010,142 @@ body {
     max-width: 86px !important;
   }
 }
+
+/* MODAL CONFIRMAÇÃO */
+
+.confirm-modal,
+.feedback-modal {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.72);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: 0.25s ease;
+
+  z-index: 9000;
+}
+
+.confirm-modal.show,
+.feedback-modal.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.confirm-modal-card,
+.feedback-modal-card {
+  width: 100%;
+  max-width: 430px;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+
+  padding: 30px;
+
+  text-align: center;
+
+  box-shadow: 0 22px 70px var(--shadow);
+
+  transform: translateY(14px) scale(0.96);
+
+  transition: 0.25s ease;
+}
+
+.confirm-modal.show .confirm-modal-card,
+.feedback-modal.show .feedback-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.confirm-modal-icon,
+.feedback-icon {
+  width: 66px;
+  height: 66px;
+
+  margin: 0 auto 18px;
+
+  border-radius: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--surface-2);
+
+  font-size: 30px;
+}
+
+.confirm-modal-card h2,
+.feedback-modal-card h2 {
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+
+.confirm-modal-card p,
+.feedback-modal-card p {
+  color: var(--text-muted);
+
+  font-size: 16px;
+  line-height: 1.5;
+
+  margin-bottom: 24px;
+}
+
+.confirm-modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.modal-cancel-btn,
+.modal-confirm-btn,
+.feedback-modal-card button {
+  height: 50px;
+
+  border: none;
+  border-radius: 16px;
+
+  font-weight: bold;
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.modal-cancel-btn {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.modal-confirm-btn,
+.feedback-modal-card button {
+  background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+  color: white;
+}
+
+.modal-cancel-btn:hover,
+.modal-confirm-btn:hover,
+.feedback-modal-card button:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .confirm-modal-card,
+  .feedback-modal-card {
+    padding: 26px 20px;
+    border-radius: 24px;
+  }
+
+  .confirm-modal-actions {
+    grid-template-columns: 1fr;
+  }
+}

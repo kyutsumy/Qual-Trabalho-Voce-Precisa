@@ -834,3 +834,39 @@ body {
     padding: 26px 20px !important;
   }
 }
+
+/* MENSAGEM PERFIL */
+
+.profile-message {
+  display: none;
+
+  margin-bottom: 22px;
+  padding: 16px 18px;
+
+  border-radius: 18px;
+
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.profile-message.show {
+  display: block;
+}
+
+.profile-message.success {
+  background: rgba(59, 165, 92, 0.14);
+  border: 1px solid rgba(59, 165, 92, 0.32);
+  color: var(--success);
+}
+
+.profile-message.error {
+  background: rgba(255, 107, 107, 0.14);
+  border: 1px solid rgba(255, 107, 107, 0.32);
+  color: var(--danger);
+}
+
+.profile-message.info {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}

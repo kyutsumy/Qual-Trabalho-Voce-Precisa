@@ -214,6 +214,46 @@
       </div>
     </div>
 
+    <div id="hireConfirmModal" class="confirm-modal">
+      <div class="confirm-modal-card">
+        <div class="confirm-modal-icon">🛒</div>
+
+        <h2>Confirmar contratação</h2>
+
+        <p id="hireConfirmText">Deseja realmente contratar este serviço?</p>
+
+        <div class="confirm-modal-actions">
+          <button
+            type="button"
+            class="modal-cancel-btn"
+            onclick="closeHireConfirmModal()"
+          >
+            Não
+          </button>
+
+          <button
+            type="button"
+            class="modal-confirm-btn"
+            onclick="confirmHireService()"
+          >
+            Sim, contratar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="feedbackModal" class="feedback-modal">
+      <div class="feedback-modal-card">
+        <div id="feedbackIcon" class="feedback-icon">✅</div>
+
+        <h2 id="feedbackTitle">Tudo certo!</h2>
+
+        <p id="feedbackText">Ação concluída com sucesso.</p>
+
+        <button type="button" onclick="closeFeedbackModal()">OK</button>
+      </div>
+    </div>
+
     <script src="/assets/site-config.js"></script>
     <script src="/assets/site.js"></script>
     <script src="/assets/api-config.js"></script>

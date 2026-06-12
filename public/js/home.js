@@ -628,7 +628,9 @@ function closeProfileModal() {
 
 /* CONTRATAR SERVIÇO */
 
-async function hireService(serviceId) {
+let selectedServiceToHire = null;
+
+function hireService(serviceId) {
   const token = localStorage.getItem('token');
 
   if (!token) {
@@ -637,22 +639,102 @@ async function hireService(serviceId) {
     return;
   }
 
-  const response = await fetch(`${API_URL}/order`, {
-    method: 'POST',
+  selectedServiceToHire = serviceId;
 
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
+  const service = publicServices.find((item) => item._id === serviceId);
+  const text = document.getElementById('hireConfirmText');
 
-    body: JSON.stringify({
-      serviceId,
-    }),
-  });
+  if (text) {
+    text.textContent = service
+      ? `Deseja realmente contratar o serviço "${service.title}"?`
+      : 'Deseja realmente contratar este serviço?';
+  }
 
-  const data = await response.json();
+  document.getElementById('hireConfirmModal')?.classList.add('show');
+}
 
-  alert(data.message || 'Pedido enviado!');
+function closeHireConfirmModal() {
+  selectedServiceToHire = null;
+  document.getElementById('hireConfirmModal')?.classList.remove('show');
+}
+
+async function confirmHireService() {
+  if (!selectedServiceToHire) return;
+
+  const token = localStorage.getItem('token');
+  const confirmBtn = document.querySelector('.modal-confirm-btn');
+
+  try {
+    if (confirmBtn) {
+      confirmBtn.disabled = true;
+      confirmBtn.textContent = 'Enviando...';
+    }
+
+    const response = await fetch(`${API_URL}/order`, {
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify({
+        serviceId: selectedServiceToHire,
+      }),
+    });
+
+    const data = await response.json();
+
+    closeHireConfirmModal();
+
+    if (data.success) {
+      showFeedbackModal(
+        '✅',
+        'Pedido enviado!',
+        data.message || 'Seu pedido foi enviado com sucesso.'
+      );
+    } else {
+      showFeedbackModal(
+        '⚠️',
+        'Não foi possível contratar',
+        data.message || 'Ocorreu um erro ao enviar o pedido.'
+      );
+    }
+  } catch (err) {
+    console.error(err);
+
+    closeHireConfirmModal();
+
+    showFeedbackModal(
+      '⚠️',
+      'Erro de conexão',
+      'Não foi possível enviar o pedido agora.'
+    );
+  } finally {
+    if (confirmBtn) {
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = 'Sim, contratar';
+    }
+
+    selectedServiceToHire = null;
+  }
+}
+
+function showFeedbackModal(icon, title, text) {
+  const modal = document.getElementById('feedbackModal');
+  const feedbackIcon = document.getElementById('feedbackIcon');
+  const feedbackTitle = document.getElementById('feedbackTitle');
+  const feedbackText = document.getElementById('feedbackText');
+
+  if (feedbackIcon) feedbackIcon.textContent = icon;
+  if (feedbackTitle) feedbackTitle.textContent = title;
+  if (feedbackText) feedbackText.textContent = text;
+
+  modal?.classList.add('show');
+}
+
+function closeFeedbackModal() {
+  document.getElementById('feedbackModal')?.classList.remove('show');
 }
 
 /* PREÇO */
@@ -776,6 +858,27 @@ document.addEventListener('click', (event) => {
 
   if (!navSearch.contains(event.target)) {
     panel.classList.remove('show');
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+
+  closeHireConfirmModal();
+  closeFeedbackModal();
+});
+
+document
+  .getElementById('hireConfirmModal')
+  ?.addEventListener('click', (event) => {
+    if (event.target.id === 'hireConfirmModal') {
+      closeHireConfirmModal();
+    }
+  });
+
+document.getElementById('feedbackModal')?.addEventListener('click', (event) => {
+  if (event.target.id === 'feedbackModal') {
+    closeFeedbackModal();
   }
 });
 
