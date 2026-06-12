@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const { MongoClient, ObjectId } = require('mongodb');
 const path = require('path');
@@ -38,17 +37,6 @@ async function connectDB() {
 }
 
 connectDB();
-
-/* EMAIL */
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
 
 /* UTIL */
 
@@ -90,31 +78,7 @@ async function sendCodeEmail({ to, code }) {
     throw new Error('EMAIL_FROM não configurado');
   }
 
-  const html = `
-    <div style="margin:0;padding:0;background:#0f0f10;font-family:Arial,Helvetica,sans-serif;color:#ffffff;">
-      <div style="max-width:560px;margin:0 auto;padding:32px 18px;">
-        <div style="background:#171717;border:1px solid #2a2a2a;border-radius:24px;padding:28px;text-align:center;">
-          <h1 style="margin:0 0 12px;color:#ff6b6b;font-size:28px;">
-            Qual Trabalho Você Precisa
-          </h1>
-
-          <p style="margin:0 0 22px;color:#b5b5b5;font-size:16px;line-height:1.5;">
-            Use o código abaixo para acessar sua conta.
-          </p>
-
-          <div style="display:inline-block;background:#242424;border:1px solid #333;border-radius:18px;padding:18px 28px;margin-bottom:22px;">
-            <strong style="font-size:34px;letter-spacing:8px;color:#ffffff;">
-              ${code}
-            </strong>
-          </div>
-
-          <p style="margin:0;color:#888;font-size:14px;line-height:1.5;">
-            Esse código expira em 5 minutos. Se você não solicitou este acesso, apenas ignore este e-mail.
-          </p>
-        </div>
-      </div>
-    </div>
-  `;
+  const html = emailTemplate(code);
 
   const response = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
