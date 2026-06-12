@@ -2333,3 +2333,191 @@ html {
     max-width: 760px;
   }
 }
+
+/* =========================
+   NAVBAR DESKTOP CENTRALIZADA
+   Igual ao visual do zoom 80%
+========================= */
+
+@media (min-width: 769px) {
+  .navbar {
+    position: fixed !important;
+    top: 18px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+
+    width: calc(100% - 32px) !important;
+    max-width: none !important;
+
+    min-height: 72px !important;
+    padding: 0 20px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    gap: 20px !important;
+
+    overflow: visible !important;
+  }
+
+  .navbar .site-logo {
+    position: relative !important;
+    z-index: 30 !important;
+
+    flex: 0 1 auto !important;
+
+    max-width: 360px !important;
+
+    font-size: clamp(22px, 2vw, 30px) !important;
+    line-height: 1.1 !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Aqui é o principal: busca sempre no centro real da navbar */
+  .nav-search {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+
+    width: clamp(360px, 38vw, 520px) !important;
+    max-width: 520px !important;
+    min-width: 0 !important;
+
+    z-index: 20 !important;
+  }
+
+  .nav-search-box {
+    width: 100% !important;
+    height: 46px !important;
+    min-height: 46px !important;
+
+    padding: 0 7px 0 14px !important;
+    gap: 8px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+
+    border-radius: 999px !important;
+  }
+
+  .nav-search-box input {
+    min-width: 0 !important;
+    flex: 1 !important;
+
+    font-size: 13px !important;
+  }
+
+  .nav-search-box button {
+    height: 36px !important;
+    padding: 0 15px !important;
+
+    font-size: 13px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .nav-buttons {
+    position: relative !important;
+    z-index: 30 !important;
+
+    flex: 0 0 auto !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+
+    max-width: 220px !important;
+    min-width: 150px !important;
+  }
+
+  .user-menu,
+  .user-profile,
+  .user-button,
+  .user-dropdown {
+    max-width: 170px !important;
+    min-width: 0 !important;
+  }
+
+  .user-menu button,
+  .user-profile,
+  .user-button,
+  .user-dropdown button {
+    max-width: 170px !important;
+    min-width: 0 !important;
+
+    overflow: hidden !important;
+  }
+
+  .user-menu span,
+  .user-profile span,
+  .user-button span,
+  .user-dropdown span {
+    max-width: 82px !important;
+
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* Ajuste para notebook em 100% */
+@media (min-width: 769px) and (max-width: 1200px) {
+  .navbar .site-logo {
+    max-width: 300px !important;
+    font-size: 24px !important;
+  }
+
+  .nav-search {
+    width: clamp(320px, 36vw, 470px) !important;
+  }
+
+  .nav-buttons {
+    min-width: 140px !important;
+    max-width: 180px !important;
+  }
+
+  .user-menu,
+  .user-profile,
+  .user-button,
+  .user-dropdown,
+  .user-menu button,
+  .user-profile,
+  .user-button,
+  .user-dropdown button {
+    max-width: 155px !important;
+  }
+
+  .user-menu span,
+  .user-profile span,
+  .user-button span,
+  .user-dropdown span {
+    max-width: 66px !important;
+  }
+}
+
+/* Antes de virar mobile, deixa ainda mais compacto */
+@media (min-width: 769px) and (max-width: 980px) {
+  .navbar .site-logo {
+    max-width: 250px !important;
+    font-size: 21px !important;
+  }
+
+  .nav-search {
+    width: clamp(280px, 34vw, 380px) !important;
+  }
+
+  .nav-search-box button {
+    padding: 0 12px !important;
+    font-size: 12px !important;
+  }
+
+  .nav-buttons {
+    min-width: 120px !important;
+    max-width: 150px !important;
+  }
+}
