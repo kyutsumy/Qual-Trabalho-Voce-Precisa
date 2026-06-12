@@ -78,6 +78,78 @@ function generateToken(user) {
   );
 }
 
+async function sendCodeEmail({ to, code }) {
+  if (!process.env.BREVO_API_KEY) {
+    throw new Error('BREVO_API_KEY não configurada');
+  }
+
+  const fromEmail = process.env.EMAIL_FROM || process.env.EMAIL_USER;
+  const fromName = process.env.EMAIL_FROM_NAME || 'Qual Trabalho Você Precisa';
+
+  if (!fromEmail) {
+    throw new Error('EMAIL_FROM não configurado');
+  }
+
+  const html = `
+    <div style="margin:0;padding:0;background:#0f0f10;font-family:Arial,Helvetica,sans-serif;color:#ffffff;">
+      <div style="max-width:560px;margin:0 auto;padding:32px 18px;">
+        <div style="background:#171717;border:1px solid #2a2a2a;border-radius:24px;padding:28px;text-align:center;">
+          <h1 style="margin:0 0 12px;color:#ff6b6b;font-size:28px;">
+            Qual Trabalho Você Precisa
+          </h1>
+
+          <p style="margin:0 0 22px;color:#b5b5b5;font-size:16px;line-height:1.5;">
+            Use o código abaixo para acessar sua conta.
+          </p>
+
+          <div style="display:inline-block;background:#242424;border:1px solid #333;border-radius:18px;padding:18px 28px;margin-bottom:22px;">
+            <strong style="font-size:34px;letter-spacing:8px;color:#ffffff;">
+              ${code}
+            </strong>
+          </div>
+
+          <p style="margin:0;color:#888;font-size:14px;line-height:1.5;">
+            Esse código expira em 5 minutos. Se você não solicitou este acesso, apenas ignore este e-mail.
+          </p>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+
+    headers: {
+      accept: 'application/json',
+      'api-key': process.env.BREVO_API_KEY,
+      'content-type': 'application/json',
+    },
+
+    body: JSON.stringify({
+      sender: {
+        name: fromName,
+        email: fromEmail,
+      },
+      to: [
+        {
+          email: to,
+        },
+      ],
+      subject: 'Seu código de acesso',
+      htmlContent: html,
+    }),
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    console.error('Erro Brevo:', data);
+    throw new Error(data.message || 'Erro ao enviar e-mail pela Brevo');
+  }
+
+  return data;
+}
+
 /* AUTH MIDDLEWARE */
 
 function auth(req, res, next) {
@@ -145,11 +217,9 @@ app.post('/send-code', async (req, res) => {
       });
     }
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
+    await sendCodeEmail({
       to: email,
-      subject: 'Seu código de acesso',
-      html: emailTemplate(code),
+      code,
     });
 
     return res.json({
