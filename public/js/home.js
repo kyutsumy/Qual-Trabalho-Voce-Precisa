@@ -153,6 +153,40 @@ function logout() {
   window.location.href = '/pages/home.html';
 }
 
+function renderServiceSkeletons(amount = 6) {
+  const servicesGrid = document.getElementById('servicesGrid');
+
+  if (!servicesGrid) return;
+
+  servicesGrid.innerHTML = Array.from({ length: amount })
+    .map(
+      () => `
+        <div class="skeleton-card">
+          <div class="skeleton-top">
+            <div class="skeleton-circle"></div>
+
+            <div class="skeleton-info">
+              <div class="skeleton-line name"></div>
+              <div class="skeleton-line profession"></div>
+            </div>
+          </div>
+
+          <div class="skeleton-line title"></div>
+
+          <div class="skeleton-line text"></div>
+          <div class="skeleton-line text"></div>
+          <div class="skeleton-line text short"></div>
+
+          <div class="skeleton-bottom">
+            <div class="skeleton-line price"></div>
+            <div class="skeleton-button"></div>
+          </div>
+        </div>
+      `
+    )
+    .join('');
+}
+
 /* CARREGAR SERVIÇOS */
 
 async function loadServices() {
@@ -160,13 +194,9 @@ async function loadServices() {
 
   if (!grid) return;
 
-  grid.innerHTML = `
-    <div class="empty-services">
-      Carregando serviços...
-    </div>
-  `;
-
   try {
+    renderServiceSkeletons();
+
     const res = await fetch(`${API_URL}/services/public`);
     const data = await res.json();
 
@@ -178,6 +208,10 @@ async function loadServices() {
       `;
 
       updateResultCount(0);
+
+      if (typeof showToast === 'function') {
+        showToast('Não foi possível carregar os serviços.', 'error');
+      }
 
       return;
     }
@@ -197,6 +231,10 @@ async function loadServices() {
     `;
 
     updateResultCount(0);
+
+    if (typeof showToast === 'function') {
+      showToast('Erro de conexão ao carregar serviços.', 'error');
+    }
   }
 }
 
@@ -881,6 +919,32 @@ document.getElementById('feedbackModal')?.addEventListener('click', (event) => {
     closeFeedbackModal();
   }
 });
+
+/* VOLTAR AO TOPO */
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+}
+
+function handleBackToTopButton() {
+  const button = document.getElementById('backToTopBtn');
+
+  if (!button) return;
+
+  if (window.scrollY > 450) {
+    button.classList.add('show');
+  } else {
+    button.classList.remove('show');
+  }
+}
+
+window.addEventListener('scroll', handleBackToTopButton);
+window.addEventListener('load', handleBackToTopButton);
+
+window.scrollToTop = scrollToTop;
 
 /* SEGURANÇA */
 

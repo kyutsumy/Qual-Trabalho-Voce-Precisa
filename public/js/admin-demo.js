@@ -299,14 +299,14 @@ function handleAvatarFile(file) {
   const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
 
   if (!allowedTypes.includes(file.type)) {
-    alert('Use apenas imagens PNG, JPG, JPEG ou WEBP.');
+    showToast('Use apenas imagens PNG, JPG, JPEG ou WEBP.', 'error');
     return;
   }
 
   const maxSize = 2 * 1024 * 1024;
 
   if (file.size > maxSize) {
-    alert('A imagem é muito grande. Use uma imagem de até 2MB.');
+    showToast('A imagem é muito grande. Use uma imagem de até 2MB.', 'error');
     return;
   }
 
@@ -524,12 +524,12 @@ async function saveDemoProfile() {
     !category ||
     !description
   ) {
-    alert('Preencha os campos obrigatórios!');
+    showToast('Preencha os campos obrigatórios!', 'error');
     return;
   }
 
   if (!priceMode) {
-    alert('Selecione se o preço é fixo ou variável.');
+    showToast('Selecione se o preço é fixo ou variável.', 'error');
     return;
   }
 
@@ -537,7 +537,7 @@ async function saveDemoProfile() {
 
   if (priceMode === 'fixed') {
     if (priceInCents <= 0) {
-      alert('Digite um preço válido.');
+      showToast('Digite um preço válido.', 'error');
       return;
     }
 
@@ -546,12 +546,15 @@ async function saveDemoProfile() {
 
   if (priceMode === 'variable') {
     if (priceMinInCents <= 0 || priceMaxInCents <= 0) {
-      alert('Digite o preço mínimo e o preço máximo.');
+      showToast('Digite o preço mínimo e o preço máximo.', 'error');
       return;
     }
 
     if (priceMinInCents > priceMaxInCents) {
-      alert('O preço mínimo não pode ser maior que o preço máximo.');
+      showToast(
+        'O preço mínimo não pode ser maior que o preço máximo.',
+        'error'
+      );
       return;
     }
 
@@ -605,10 +608,10 @@ async function saveDemoProfile() {
   saveDemoBtn.textContent = 'Salvar perfil demonstrativo';
 
   if (data.success) {
-    alert('Perfil salvo com sucesso!');
+    showToast('Perfil salvo com sucesso!', 'success');
     await loadDemoProfiles();
   } else {
-    alert(data.message || 'Erro ao salvar perfil');
+    showToast(data.message || 'Erro ao salvar perfil', 'error');
   }
 }
 

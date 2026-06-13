@@ -53,7 +53,7 @@ async function loadDashboard() {
     const data = await response.json();
 
     if (!data.success) {
-      alert(data.message || 'Erro ao carregar dashboard');
+      showToast(data.message || 'Erro ao carregar dashboard', 'error');
       window.location.href = '/pages/login.html';
       return;
     }
@@ -66,7 +66,7 @@ async function loadDashboard() {
     renderOrders(data.orders || [], data.user);
   } catch (err) {
     console.error(err);
-    alert('Erro ao carregar dashboard');
+    showToast('Erro ao carregar dashboard', 'error');
   }
 }
 
@@ -357,7 +357,7 @@ async function saveServiceChanges() {
   const serviceId = editServiceId.value;
 
   if (!serviceId) {
-    alert('Selecione um serviço para editar.');
+    showToast('Selecione um serviço para editar.', 'warning');
     return;
   }
 
@@ -374,7 +374,7 @@ async function saveServiceChanges() {
   const description = editDescription.value.trim();
 
   if (!title || !category || !city || !description) {
-    alert('Preencha todos os campos obrigatórios.');
+    showToast('Preencha todos os campos obrigatórios.', 'error');
     return;
   }
 
@@ -382,7 +382,7 @@ async function saveServiceChanges() {
 
   if (editPriceMode === 'fixed') {
     if (editPriceInCents <= 0) {
-      alert('Digite um preço válido.');
+      showToast('Digite um preço válido.', 'error');
       return;
     }
 
@@ -391,12 +391,15 @@ async function saveServiceChanges() {
 
   if (editPriceMode === 'variable') {
     if (editPriceMinInCents <= 0 || editPriceMaxInCents <= 0) {
-      alert('Digite o preço mínimo e o preço máximo.');
+      showToast('Digite o preço mínimo e o preço máximo.', 'error');
       return;
     }
 
     if (editPriceMinInCents > editPriceMaxInCents) {
-      alert('O preço mínimo não pode ser maior que o preço máximo.');
+      showToast(
+        'O preço mínimo não pode ser maior que o preço máximo.',
+        'error'
+      );
       return;
     }
 
@@ -430,10 +433,10 @@ async function saveServiceChanges() {
   const data = await response.json();
 
   if (data.success) {
-    alert('Serviço atualizado com sucesso!');
+    showToast('Serviço atualizado com sucesso!', 'success');
     await loadDashboard();
   } else {
-    alert(data.message || 'Erro ao salvar alterações.');
+    showToast(data.message || 'Erro ao salvar alterações.', 'error');
   }
 }
 
@@ -441,7 +444,7 @@ async function saveServiceChanges() {
 
 function openDeleteServiceModal() {
   if (!selectedService) {
-    alert('Selecione um serviço para excluir.');
+    showToast('Selecione um serviço para excluir.', 'warning');
     return;
   }
 
@@ -471,7 +474,7 @@ async function deleteSelectedService(serviceId) {
     selectedService = null;
     await loadDashboard();
   } else {
-    alert(data.message || 'Erro ao excluir serviço.');
+    showToast(data.message || 'Erro ao excluir serviço.', 'error');
   }
 }
 
@@ -675,7 +678,7 @@ async function updateOrderStatus(orderId, status) {
   if (data.success) {
     await loadDashboard();
   } else {
-    alert(data.message || 'Erro ao atualizar pedido');
+    showToast(data.message || 'Erro ao atualizar pedido', 'error');
   }
 }
 

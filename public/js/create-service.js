@@ -80,10 +80,10 @@ function togglePriceTypeMenu() {
 document.addEventListener('click', (event) => {
   const dropdown = document.querySelector('.price-type-dropdown');
 
-  if (!dropdown.contains(event.target)) {
-    priceTypeMenu.classList.remove('show');
-    dropdown.classList.remove('open');
-  }
+  if (!dropdown || dropdown.contains(event.target)) return;
+
+  priceTypeMenu.classList.remove('show');
+  dropdown.classList.remove('open');
 });
 
 function setPriceMode(mode) {
@@ -117,6 +117,7 @@ function setPriceMode(mode) {
 pricePlaceholder.style.display = 'flex';
 fixedPriceBox.style.display = 'none';
 variablePriceBox.style.display = 'none';
+
 /* PREÇOS */
 
 priceInput.addEventListener('input', () => {
@@ -177,27 +178,27 @@ async function createService() {
   const description = descriptionInput.value.trim();
 
   if (!title || !category || !city || !area || !description) {
-    alert('Preencha todos os campos!');
+    showToast('Preencha todos os campos!', 'error');
     return;
   }
 
   if (!priceMode) {
-    alert('Selecione se o preço é fixo ou variável.');
+    showToast('Selecione se o preço é fixo ou variável.', 'error');
     return;
   }
 
   if (title.length > 50) {
-    alert('O título deve ter no máximo 50 caracteres.');
+    showToast('O título deve ter no máximo 50 caracteres.', 'error');
     return;
   }
 
   if (category.length > 25) {
-    alert('A categoria deve ter no máximo 25 caracteres.');
+    showToast('A categoria deve ter no máximo 25 caracteres.', 'error');
     return;
   }
 
   if (description.length > 1000) {
-    alert('A descrição deve ter no máximo 1000 caracteres.');
+    showToast('A descrição deve ter no máximo 1000 caracteres.', 'error');
     return;
   }
 
@@ -205,7 +206,7 @@ async function createService() {
 
   if (priceMode === 'fixed') {
     if (priceInCents <= 0) {
-      alert('Digite um preço válido.');
+      showToast('Digite um preço válido.', 'error');
       return;
     }
 
@@ -214,12 +215,15 @@ async function createService() {
 
   if (priceMode === 'variable') {
     if (priceMinInCents <= 0 || priceMaxInCents <= 0) {
-      alert('Digite o preço mínimo e o preço máximo.');
+      showToast('Digite o preço mínimo e o preço máximo.', 'error');
       return;
     }
 
     if (priceMinInCents > priceMaxInCents) {
-      alert('O preço mínimo não pode ser maior que o preço máximo.');
+      showToast(
+        'O preço mínimo não pode ser maior que o preço máximo.',
+        'error'
+      );
       return;
     }
 
@@ -228,39 +232,62 @@ async function createService() {
     )}`;
   }
 
-  const response = await fetch(`${API_URL}/services`, {
-    method: 'POST',
+  const submitBtn =
+    document.querySelector('.publish-btn') ||
+    document.querySelector('[onclick="createService()"]');
 
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
+  try {
+    setButtonLoading(submitBtn, 'Publicando...');
 
-    body: JSON.stringify({
-      title,
-      category,
-      description,
+    const response = await fetch(`${API_URL}/services`, {
+      method: 'POST',
 
-      price,
-      priceType: priceMode,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
 
-      priceInCents: priceMode === 'fixed' ? priceInCents : 0,
+      body: JSON.stringify({
+        title,
+        category,
+        description,
 
-      priceMinInCents: priceMode === 'variable' ? priceMinInCents : 0,
+        price,
+        priceType: priceMode,
 
-      priceMaxInCents: priceMode === 'variable' ? priceMaxInCents : 0,
+        priceInCents: priceMode === 'fixed' ? priceInCents : 0,
 
-      city,
-      area,
-    }),
-  });
+        priceMinInCents: priceMode === 'variable' ? priceMinInCents : 0,
 
-  const data = await response.json();
+        priceMaxInCents: priceMode === 'variable' ? priceMaxInCents : 0,
 
-  if (data.success) {
-    alert('Serviço publicado!');
-    window.location.replace('/pages/dashboard.html');
-  } else {
-    alert(data.message || 'Erro ao publicar');
+        city,
+        area,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      showToast('Serviço publicado!', 'success');
+
+      setTimeout(() => {
+        window.location.replace('/pages/dashboard.html');
+      }, 900);
+
+      return;
+    }
+
+    showToast(data.message || 'Erro ao publicar', 'error');
+  } catch (err) {
+    console.error(err);
+    showToast('Erro de conexão ao publicar serviço.', 'error');
+  } finally {
+    removeButtonLoading(submitBtn);
   }
 }
+
+window.backToCategoryList = backToCategoryList;
+window.togglePriceTypeMenu = togglePriceTypeMenu;
+window.setPriceMode = setPriceMode;
+window.createService = createService;
