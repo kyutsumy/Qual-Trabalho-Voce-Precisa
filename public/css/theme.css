@@ -69,17 +69,29 @@ select {
   border-color: var(--border-strong);
 }
 
+/* BOTÕES FIXOS */
+
 .theme-toggle,
 .back-btn {
   background: var(--surface-2);
   color: var(--text);
   box-shadow: 0 10px 25px var(--shadow);
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
 body.light .theme-toggle,
-body.light .back-btn {
+body.light .back-btn:not(.user-color-applied) {
   background: var(--surface);
   color: var(--text);
+}
+
+.back-btn.user-color-applied {
+  border: none;
 }
 
 /* LOGO GLOBAL */

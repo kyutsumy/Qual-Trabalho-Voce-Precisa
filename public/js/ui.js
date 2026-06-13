@@ -113,3 +113,57 @@ window.showPageLoader = showPageLoader;
 window.hidePageLoader = hidePageLoader;
 window.setButtonLoading = setButtonLoading;
 window.removeButtonLoading = removeButtonLoading;
+
+/* COR DO BOTÃO VOLTAR */
+
+async function applyUserColorToBackButton() {
+  const backBtn = document.querySelector('.back-btn');
+  const token = localStorage.getItem('token');
+
+  if (!backBtn || !token || typeof API_URL === 'undefined') return;
+
+  try {
+    const response = await fetch(`${API_URL}/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!data.success || !data.user?.profileColor) return;
+
+    const color = data.user.profileColor;
+
+    backBtn.style.background = color;
+    backBtn.style.color = getContrastColor(color);
+    backBtn.style.boxShadow = `0 10px 26px ${hexToRgba(color, 0.35)}`;
+  } catch (err) {
+    console.error('Erro ao aplicar cor do botão voltar:', err);
+  }
+}
+
+function getContrastColor(hex) {
+  const cleanHex = hex.replace('#', '');
+
+  const r = parseInt(cleanHex.substring(0, 2), 16);
+  const g = parseInt(cleanHex.substring(2, 4), 16);
+  const b = parseInt(cleanHex.substring(4, 6), 16);
+
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+  return brightness > 160 ? '#111111' : '#ffffff';
+}
+
+function hexToRgba(hex, alpha = 1) {
+  const cleanHex = hex.replace('#', '');
+
+  const r = parseInt(cleanHex.substring(0, 2), 16);
+  const g = parseInt(cleanHex.substring(2, 4), 16);
+  const b = parseInt(cleanHex.substring(4, 6), 16);
+
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+window.addEventListener('load', applyUserColorToBackButton);
+window.applyUserColorToBackButton = applyUserColorToBackButton;
