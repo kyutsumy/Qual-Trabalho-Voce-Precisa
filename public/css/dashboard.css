@@ -1082,3 +1082,67 @@ body {
     min-height: 42px;
   }
 }
+
+/* LOGO DASHBOARD */
+
+.dashboard-header {
+  position: relative;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.dashboard-logo {
+  top: 0;
+  min-width: 280px;
+  max-width: 520px;
+  min-height: 52px;
+  font-size: 27px;
+  padding: 12px 18px;
+  border-radius: 18px;
+}
+
+.dashboard-header .profile-box {
+  margin-left: auto;
+}
+
+/* LOGO DASHBOARD MOBILE */
+
+@media (max-width: 900px) {
+  .dashboard-header {
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 18px;
+    margin-bottom: 26px;
+  }
+
+  .dashboard-logo {
+    position: static !important;
+    transform: none !important;
+
+    width: 100%;
+    max-width: 520px;
+    min-width: 0;
+
+    font-size: 29px;
+    padding: 17px 18px;
+    border-radius: 22px;
+
+    text-align: center;
+    white-space: normal;
+  }
+
+  .dashboard-logo:hover {
+    transform: translateY(-2px) !important;
+  }
+
+  .dashboard-header .profile-box {
+    width: 100%;
+    margin-left: 0;
+  }
+}
