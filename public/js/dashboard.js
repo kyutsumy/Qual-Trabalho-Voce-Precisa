@@ -705,6 +705,39 @@ function formatStatus(status) {
   return statusNames[status] || status;
 }
 
+/* ABAS DASHBOARD */
+
+function showDashboardTab(tabName) {
+  const tabs = document.querySelectorAll('.dashboard-tab');
+  const panels = document.querySelectorAll('.dashboard-tab-panel');
+
+  tabs.forEach((tab) => {
+    tab.classList.remove('active');
+  });
+
+  panels.forEach((panel) => {
+    panel.classList.remove('active');
+  });
+
+  const selectedTab = document.querySelector(
+    `.dashboard-tab[onclick="showDashboardTab('${tabName}')"]`
+  );
+
+  const selectedPanel = document.querySelector(
+    `[data-dashboard-tab="${tabName}"]`
+  );
+
+  if (selectedTab) {
+    selectedTab.classList.add('active');
+  }
+
+  if (selectedPanel) {
+    selectedPanel.classList.add('active');
+  }
+}
+
+window.showDashboardTab = showDashboardTab;
+
 function escapeHtml(text) {
   return String(text)
     .replaceAll('&', '&amp;')

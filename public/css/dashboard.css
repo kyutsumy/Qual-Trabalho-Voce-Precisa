@@ -1017,3 +1017,68 @@ body {
     right: auto;
   }
 }
+
+/* ABAS DASHBOARD */
+
+.dashboard-tabs {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .dashboard-tabs {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+
+    margin: 0 0 18px;
+    padding: 8px;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+
+    position: sticky;
+    top: 12px;
+    z-index: 50;
+  }
+
+  .dashboard-tab {
+    min-height: 44px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: transparent;
+    color: var(--text-muted);
+
+    font-size: 13px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+  }
+
+  .dashboard-tab.active {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    box-shadow: 0 10px 24px rgba(88, 101, 242, 0.22);
+  }
+
+  .dashboard-tab-panel {
+    display: none;
+  }
+
+  .dashboard-tab-panel.active {
+    display: block;
+  }
+}
+
+@media (max-width: 390px) {
+  .dashboard-tab {
+    font-size: 12px;
+    min-height: 42px;
+  }
+}

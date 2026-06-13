@@ -81,7 +81,36 @@
         </div>
       </section>
 
-      <section class="dashboard-section full service-manager-section">
+      <div class="dashboard-tabs">
+        <button
+          type="button"
+          class="dashboard-tab active"
+          onclick="showDashboardTab('services')"
+        >
+          Meus Serviços
+        </button>
+
+        <button
+          type="button"
+          class="dashboard-tab"
+          onclick="showDashboardTab('received')"
+        >
+          Recebidos
+        </button>
+
+        <button
+          type="button"
+          class="dashboard-tab"
+          onclick="showDashboardTab('made')"
+        >
+          Feitos
+        </button>
+      </div>
+
+      <section
+        class="dashboard-section full service-manager-section dashboard-tab-panel active"
+        data-dashboard-tab="services"
+      >
         <div class="section-header">
           <h2>Gerenciar Serviços</h2>
 
@@ -293,13 +322,19 @@
       </section>
 
       <section class="dashboard-grid">
-        <div class="dashboard-section">
+        <div
+          class="dashboard-section dashboard-tab-panel"
+          data-dashboard-tab="received"
+        >
           <h2>Pedidos Recebidos</h2>
 
           <div id="receivedOrders" class="cards-list custom-scroll"></div>
         </div>
 
-        <div class="dashboard-section">
+        <div
+          class="dashboard-section dashboard-tab-panel"
+          data-dashboard-tab="made"
+        >
           <h2>Pedidos Feitos</h2>
 
           <div id="madeOrders" class="cards-list custom-scroll"></div>
@@ -310,8 +345,8 @@
     <script src="/assets/site-config.js"></script>
     <script src="/assets/site.js"></script>
     <script src="/assets/api-config.js"></script>
-    <script src="/js/dashboard.js"></script>
     <script src="/assets/theme.js"></script>
     <script src="/js/ui.js"></script>
+    <script src="/js/dashboard.js"></script>
   </body>
 </html>
